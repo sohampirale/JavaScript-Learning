@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="perform(1)">1</button>
+    <button onclick="perform(2)">2</button>
+    <button onclick="perform(3)">3</button><br>
+    <button onclick="perform(4)">4</button>
+    <button onclick="perform(5)">5</button>
+    <button onclick="perform(6)">6</button><br>
+    <button onclick="perform(7)">7</button>
+    <button onclick="perform(8)">8</button>
+    <button onclick="perform(9)">9</button><br>
+    <button onclick="perform(0)">0</button>
+    <button onclick="changeOperation('+')">+</button>
+    <button onclick="changeOperation('-')">-</button>
+    <button onclick="changeOperation('*')">*</button>
+    <button onclick="changeOperation('/')">/</button>
+    <hr>
+    <p class="js-output"></p>
+    <p class="js-existing-operation-selected"></p>
+    <p class="js-input-sequence"></p>
+    <script>
+        let ans=0;
+        let operation=null;
+        let inputSequence='';
+        function perform(num){
+            if(operation==null||operation==='+')ans+=num;
+            else if(operation==='-')ans-=num;
+            else if(operation==='*')ans*=num;
+            else if(operation==='/')ans/=num;
+            inputSequence+=' '+num;
+            operation=null;
+            document.querySelector('.js-output').innerHTML=`Output = ${ans}`
+            document.querySelector('.js-input-sequence').innerHTML=`${inputSequence}`
+        }
+
+        function changeOperation(newOperation){
+            if(operation!=null){
+                document.querySelector('.js-existing-operation-selected').innerHTML='Syntax Error';
+            } else {
+                document.querySelector('.js-existing-operation-selected').innerHTML='';
+                operation=newOperation;
+                inputSequence+=' '+operation;
+            }
+        }
+    </script>
+
+</body>
+</html>

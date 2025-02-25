@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Shipping Calculator</p>
+    <input placeholder="Enter price" class="js-price-input" onkeyup="
+        // console.log('You entered : '+event.key);
+        // console.log(typeof event.key);
+        
+        // if(event.key=='Enter'){
+            calculate();
+        // }
+    ">
+    <button onclick=" calculate()">Calculate</button>
+    <p class="js-show-total-price"></p>
+    <script>
+        function calculate(){
+            const cost=Number(document.querySelector('.js-price-input').value);
+            console.log(typeof cost);
+            
+            if(isNaN(cost)){
+                console.log("Enter valid number");
+                document.querySelector('.js-show-total-price').innerHTML=`Enter valid number`
+                return;
+            }
+            if(cost<40){
+                document.querySelector('.js-show-total-price').innerHTML=`Total shipping price will be : ${(cost+10).toFixed(2)}`
+            } else {
+                document.querySelector('.js-show-total-price').innerHTML=`Total shipping price will be : ${cost.toFixed(2)}`
+            }
+        }
+    </script>
+</body>
+</html>

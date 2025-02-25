@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scrissor Using DOM</title>
+</head>
+<body>
+    <h2>Welcome to Rock Paper Scissor</h2>
+    <button onclick="analyze('Rock')">Rock</button>
+    <button onclick="analyze('Paper')">Paper</button>
+    <button onclick="analyze('Scissor')">Scrissor</button>
+    <hr>
+    <p class="currStatus"></p>
+    <p class="display"></p>
+    <p class="totalWins">Round wins = 0 for Both</p>
+    <button onclick="reset();">Reset Score</button>
+    <script>
+        let wins=0,ties=0,loses=0;
+        let totalWins=0,totalLoses=0;
+        let moves=['Rock','Paper','Scissor'];
+        let currIndex=Math.floor(Math.random()*3);
+        let compMove=moves[currIndex];
+        let currStatus='';
+        function analyze(move){
+            
+            // console.log('currIndex = '+currIndex);            
+            console.log('Comp Move : '+compMove);
+            if(move==compMove){
+                ties+=1;
+                console.log('Game Tie');
+                currStatus='Game Tie';
+            }
+            else if(move=='Rock'){
+                if(compMove=='Paper'){
+                    loses+=1;
+                    console.log("Computer wins");
+                    currStatus='Computer wins';
+                } else if(compMove=='Scissor'){
+                    wins+=1;
+                    console.log('Player wins');
+                    currStatus='Player wins';
+                }
+            } else if(move=='Paper'){
+                if(compMove=='Scissor'){
+                    loses+=1;
+                    console.log("Computer wins");
+                    currStatus='Computer wins';
+                } else if(compMove=='Rock'){
+                    wins+=1;
+                    console.log('Player wins');
+                    currStatus='Player wins';
+                }
+            } else if(move=='Scissor'){
+                if(compMove=='Rock'){
+                    loses+=1;
+                    console.log("Computer wins");
+                    currStatus='Computer wins';
+                } else if(compMove=='Paper'){
+                    wins+=1;
+                    console.log('Player wins');
+                    currStatus='Player wins';
+
+                }
+            }
+            compMove=moves[++currIndex%3];
+            // display(); 
+            
+            document.querySelector('.display').innerHTML='Wins = '+wins+', Ties = '+ties+', Loses = '+loses+'.'
+            document.querySelector('.currStatus').innerHTML=currStatus;
+            if(wins==3){
+                console.log('Playes wins this round');
+                totalWins++;
+                reset();
+
+                document.querySelector('.totalWins').innerHTML='Player Wins = '+totalWins+', Computer Wins = '+totalLoses+'.';
+            } else if(loses==3){
+                console.log('COmputer Wins this round');
+                totalLoses++;
+                document.querySelector('.totalWins').innerHTML=`Player wins = ${totalWins} & Computer Wins = ${totalLoses}`;
+                reset();
+            }
+            currIndex=Math.floor(Math.random()*3);
+            compMove=moves[currIndex];
+        }
+    
+        function display(){
+            console.log("Wins = "+wins);
+            console.log("Ties = "+ties);
+            console.log("Loses = "+loses);
+        }
+    
+        function reset(){
+            wins=0;
+            ties=0;
+            loses=0;
+            document.querySelector('.currStatus').innerHTML='Score Resetted';
+            document.querySelector('.display').innerHTML='Wins = '+wins+', Ties = '+ties+', Loses = '+loses+'.'
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            background-color: rgb(219, 207, 207);
+        }
+        .css-selected{
+            background-color: rgb(62, 62, 255);
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="perform(1)">1</button>
+    <button onclick="perform(2)">2</button>
+    <button onclick="perform(3)">3</button><br>
+    <button onclick="perform(4)">4</button>
+    <button onclick="perform(5)">5</button>
+    <button onclick="perform(6)">6</button><br>
+    <button onclick="perform(7)">7</button>
+    <button onclick="perform(8)">8</button>
+    <button onclick="perform(9)">9</button><br>
+    <button onclick="perform(0)">0</button>
+    <button onclick="operation('add')" class="add">+</button>
+    <button onclick="operation('sub')" class="sub">-</button>
+    <button onclick="operation('mult')" class="mult">*</button>
+    <button onclick="operation('divd')" class="divd">/</button>
+    <hr>
+    <p class="js-output"></p>
+    <p class="js-existing-operation-selected"></p>
+    <p class="js-input-sequence"></p>
+    <script>
+        let currOperation=null;
+        function operation(nextOperation){
+            if(currOperation!=null){
+                document.querySelector('.css-selected').classList.remove('css-selected');
+                console.log(('removed '+currOperation+' from css-slected'));
+            }
+            currOperation=nextOperation;
+            document.querySelector('.'+currOperation).classList.add('css-selected');
+            console.log(currOperation+" added into css-slected");
+        }
+
+        function perform(number){
+            
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        
+        button {
+            background-color: transparent;
+            height:50px;
+            width:50px;
+            border:none
+        }
+
+        .headline{
+            color: white;
+            font-weight: bold;
+            size: 50px;
+        }
+
+
+        .running{
+            background-color: aqua;
+        }
+
+        .memories{
+            height: 150px;
+            width:150px;
+            margin: 50px;
+            /* padding: 15px; */
+        }
+
+        .blur{
+            filter: blur(15px);
+        }
+    </style>
+</head>
+<body>
+    <p class="headline">Catch the button to unlock memories</p>
+    <br>
+    <button class="d0" onclick="check(0)"></button>
+    <button class="d1" onclick="check(1)"></button>
+    <button class="d2" onclick="check(2)"></button>
+    <button class="d3" onclick="check(3)"></button>
+    <button class="d4" onclick="check(4)"></button>
+    <button class="d5" onclick="check(5)"></button>
+    <button class="d6" onclick="check(6)"></button>
+    <button class="d7" onclick="check(7)"></button>
+    <button class="d8" onclick="check(8)"></button>
+    <button class="d9" onclick="check(9)"></button>
+    <br>
+    <button class="memories"><img class="m1 blur " src="images/m1.png"></button>
+    <button class="memories"><img class="m2 blur " src="images/m2.png"></button>
+    <button class="memories"><img class="m3 blur " src="images/m3.png"></button>
+    <button class="memories"><img class="m4 blur " src="images/m4.png"></button>
+
+
+    <script>
+        let curr=0;
+        let UnsuccessfullAttempts=0;
+        let SuccessfullAttempts=0;
+        document.querySelector('.d0').classList.add('running');
+
+        setInterval(function(){
+            // console.log('inside setInterval');
+            document.querySelector('.d'+curr).classList.remove('running');
+            curr=(curr+1)%10;
+            document.querySelector('.d'+curr).classList.add('running');
+        },100);
+
+        function check(clicked){
+            let runningEle=document.querySelector('.running');
+            let caughtEle=document.querySelector('.d'+clicked);
+            if(runningEle==caughtEle){
+                alert('Successfull attempt')
+                SuccessfullAttempts++;
+                let removing=document.querySelector('.m'+SuccessfullAttempts);
+                if(removing!=null){
+                    removing.classList.remove('blur');
+                }
+            } else {
+                alert('Unsuccessfull attempt');
+                UnsuccessfullAttempts++;
+            }
+            console.log('Successfull ateemps : '+SuccessfullAttempts);
+            console.log('Unsuccessfull ateemps : '+UnsuccessfullAttempts);
+        }
+    
+    </script>
+</body>
+</html>

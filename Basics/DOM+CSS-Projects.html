@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects With DOM</title>
+    <style>
+
+    .css-subscribe-button{
+        border:none;
+        background-color: black;
+        color:white;
+        cursor:pointer;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 50px;
+    }
+
+    .subscribed{
+        color: black;
+        background-color: rgb(178, 246, 169);
+    }
+
+    </style>
+</head>
+<body>
+    <H3>Subscribe to Youtube</H3>
+
+    <button class='js-subscribe-button css-subscribe-button' onclick="
+      subscribe();
+    ">     
+    Subscribe  </button>
+
+    <hr></hr>
+  
+    <script>
+        function subscribe(){
+            let variable=document.querySelector('.js-subscribe-button');
+            if(variable.innerText==='Subscribe'){
+                variable.innerHTML='Subscribed!';
+                variable.classList.add('subscribed')
+            } else {
+                variable.classList.remove('subscribed') 
+                variable.innerHTML='Subscribe';
+            }
+        }
+    </script>
+</body>
+</html>

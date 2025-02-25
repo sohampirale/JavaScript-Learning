@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects With DOM</title>
+</head>
+<body>
+    <H3>Subscribe to Youtube</H3>
+    <button class='js-subscribe-button' onclick="
+        no+=1;
+        // console.log(no);
+        let variable=document.querySelector('.js-subscribe-button');
+        if(variable.innerHTML==='Subscribe'){
+            variable.innerHTML='Subscribed!';
+            console.log('changed to Subscribed!');
+        } else {
+            variable.innerHTML='Subscribe';
+            console.log('changed to Subscribe');
+        }
+    ">     
+    Subscribe  </button>
+
+    <hr></hr>
+    <button onclick="
+    console.log('You cliked the button for : '+no+' times!');
+    ">get count</button>
+
+    <script>
+        let no=0;
+    </script>
+</body>
+</html>
