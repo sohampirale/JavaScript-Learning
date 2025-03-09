@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(133, 133, 133);
+}
+
+.add-new-task{
+    margin-left: 35px;
+}
+
+.tick{
+    height: 20px;
+    width: 20px;
+    align-self: auto;
+}
+
+.headline{
+    margin-left: 125PX;
+}
+
+.new-task-input{
+    padding-left: 65px;
+}
