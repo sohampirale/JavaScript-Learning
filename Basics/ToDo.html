@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="styles/ToDo.css">
+</head>
+<body>
+        <span class="add-new-task">Add New Task : </span>
+        <input placeholder="Enter Task" class="new-task-input" onkeyup="
+        console.log(event.key);
+        if(event.key=='Enter'){
+            addTask();
+        }
+    ">
+        <button class="add-task-button" onclick="addTask()" >Add Task</button>
+        <hr>
+        <p class="headline">To Do Tasks<img src="images/tick.png" class="tick"></p>
+    <section class="to-do-list">
+
+    </section>
+    <script src="scripts/ToDo.js"></script>
+</body>
+</html>

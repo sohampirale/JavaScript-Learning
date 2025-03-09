@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+  <script src="scripts/login.js"></script>
+  <div class="login-box">
+    <input type="text" placeholder="Enter Username" class="username"><br>
+    <input type="text" placeholder="Enter Password" class="password" onkeydown="
+    
+    console.log(event.key);
+    if(event.key=='Enter'){
+      loginUser();
+    }"><br>
+    <button class="login-btn" onclick="
+      console.log('onclick');
+      loginUser();
+    ">Login</button>
+  </div>
+</body>
+</html>
