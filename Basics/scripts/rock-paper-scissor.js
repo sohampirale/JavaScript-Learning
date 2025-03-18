@@ -1,4 +1,29 @@
 let seconds=4;
+let confirmationInnerHTML=` Are you sure to reset score?<button class="confirmation">Yes</button><button class="confirmation">No</button>`;
+let resetScoreElem=document.querySelector('.reset-score-btn');
+let resetScoreConfirmationBtnElem;
+resetScoreElem.addEventListener('click',()=>{
+    let resetScoreElem=document.querySelector('.reset-score-confirmation');
+    if(resetScoreElem){
+        resetScoreElem.innerHTML+=confirmationInnerHTML;
+        resetScoreConfirmationBtnElem=document.querySelectorAll('.confirmation');
+        resetScoreConfirmationBtnElem.forEach((confirmationBtn)=>{
+            confirmationBtn.addEventListener('click',(event)=>{
+                if(event.target.innerText=='Yes'){
+                    reset();
+                    alert('clicked on yes');
+                } else if(event.target.innerText=='No'){
+                    alert('clicked on No');
+                }
+                resetScoreElem.innerHTML='';
+            });
+        })
+      
+    }
+});
+
+
+// reset
 setInterval(function(){
     document.querySelector('.seconds-remainning').innerHTML=--seconds;
     if(seconds==0){
@@ -87,7 +112,7 @@ function play(move){
         newWinner.classList.add('winner');
         // console.log('adding class winner to the useButton');
         // console.log(newWinner);
-        document.querySelector('robotButton').classList.add('winner');
+        document.querySelector('.robotButton').classList.add('winner');
     } else if(currWin=='Computer'){
         document.querySelector('.js-reset-score').innerHTML=`Computer Wins`
         const oldWinner=document.querySelector('.winner');
@@ -117,6 +142,15 @@ function play(move){
     document.querySelector('.js-score-board').innerHTML=`Player Score : ${localStorage.getItem('wins')} & Computer Score : ${localStorage.getItem('loses')} & Ties : ${localStorage.getItem('ties')}`
 
 }    
+
+let arrowFn=()=>{
+    localStorage.setItem('wins',0)
+    localStorage.setItem('ties',0)
+    localStorage.setItem('loses',0)
+    console.log("Game resetted");
+    document.querySelector('.js-reset-score').innerHTML="Score Resetted";
+    document.querySelector('.js-score-board').innerHTML=`Player Score : ${localStorage.getItem('wins')} & Computer Score : ${localStorage.getItem('loses')} & Ties : ${localStorage.getItem('ties')}`
+}
 
 function reset(){
     localStorage.setItem('wins',0)

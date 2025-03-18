@@ -1,0 +1,25 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+button{
+    height: 30px;
+    width: 30px;
+    border: none;
+}
+
+.current{
+    background-color: rgb(0, 85, 255);
+    color: aquamarine;
+}
+
+.start-game-btn{
+    background-color: green;
+    height: 40px;
+    width: 80px;
+    color: white;
+    margin-left: 220px;
+    margin-top: 50px;
+    cursor : pointer;
+}

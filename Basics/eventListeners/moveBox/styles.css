@@ -1,0 +1,17 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+button{
+    border: none;
+    background-color: cyan;
+}
+.btn-horizontal,
+.btn-verticle {
+    position: relative;
+}
+
+.btn-verticle{
+    margin-left: 270px;
+}
