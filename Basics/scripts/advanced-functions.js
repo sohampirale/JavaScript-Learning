@@ -3,6 +3,11 @@
 //     return 10;
 // }
 
+<<<<<<< HEAD
+=======
+const { log } = require("util");
+
+>>>>>>> 6901fad235846f9ba41e623584b325dda564d22a
 // console.log(variable);
 
 // console.log(typeof variable);
@@ -88,16 +93,120 @@
 // setInterval(greet,200 0);
 
 // console.log('hi');  
-let cnt=0;
-let timeoutVar=setTimeout(function(){
-    console.log('hello from setTimeout');
-    let intervalVar=setInterval(function(){
-        console.log('hii there from setInterval');
-        cnt++;
-        if(cnt==3){
-            console.log('Interval stopped');
-            clearInterval(intervalVar);
-        }
-    },1000);
-},5000);
+// let cnt=0;
+// let timeoutVar=setTimeout(function(){
+//     console.log('hello from setTimeout');
+//     let intervalVar=setInterval(function(){
+//         console.log('hii there from setInterval');
+//         cnt++;
+//         if(cnt==3){
+//             console.log('Interval stopped');
+//             clearInterval(intervalVar);
+//         }
+//     },1000);
+// },5000);
+
+
+
+// const temp=function (){
+//     console.log('hello');
+// }
+
+// console.log(temp);
+// // temp();
+
+// function fn1(fn2){
+//     console.log('hi');
+//     fn2();
+// }
+
+
+// fn1(temp);
+
+
+// let var1=function(){
+//     console.log('hello world');
+// }
+
+// let obj={
+//     var1
+// }
+
+// console.log(var1);
+
+// console.log(obj.var1);
+
+// obj.var1();
+
+// if("var1" in obj){
+//     console.log('exists');
+// } else {
+//     console.log('does not exists');
+// }
+
+
+// function fn1(){
+//     console.log('hii');
+//     return 1;
+// }
+
+// function fn2(param){
+//     console.log(param);
+//     console.log('hello');
+// }
+
+// fn2(fn1());
+
+// setTimeout(function(){
+    // console.log('setTimeout');
+    // setInterval(function(){
+        // console.log('setInterval');
+    // },2000);
+// },10000);
+
+// function fn1(param){
+//     param();
+// }
+
+// function fn2(){
+//     console.log('hello');
+// }
+
+// fn1( ()=>{
+//     console.log('hii');
+// });
+
+// fn1(fn2);
+
+// let var1= () =>{
+//     console.log('Hello world');
+//     return 1;
+// }
+
+// var1(10,20);
+// console.log(var1);
+
+
+// fn1();
+// fn2();
+// function fn1(){
+//     console.log('hello');
+// }
+
+// let fn2=()=>{
+//     console.log('hii');
+// }
+
+// fn1();
+// fn2();
+
+let arr=[-10,20,-23,43];
+// let arr2=arr.filter((value,index,param3)=>{
+//     console.log(param3);
+//     return value>=0;
+// })
+// console.log(arr2);
+
+let arr2=arr.filter(value=> value>=0);
+console.log(arr2);
 
