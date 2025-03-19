@@ -1,0 +1,108 @@
+  /* button{
+    
+  }
+
+  button:hover{
+    background-color: rgb(244, 49, 49);
+    cursor: pointer;  
+  } */
+
+  button{
+    vertical-align: top;
+    font-size: 11px;
+  }
+
+  .subscribe{
+    margin-right: 10px;
+    margin-left: 10;
+    background-color: rgb(204, 0, 0);
+    color: rgb(255, 255, 255);
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    border: none;
+    border-radius: 2px;
+    border-style: solid;
+    transition:background-color 0.1s,padding-left 0.1s,padding-right 0.1s,margin-left 0.1s,margin-right 0.1s;
+  }
+
+  .subscribe:hover{
+    background-color: rgba(244, 49, 49, 0.864);
+    cursor: pointer;  
+    padding-left: 17px;
+    padding-right: 17px;
+    margin-left: 5px;
+    margin-right: 5px;
+  } 
+
+  .subscribe:active{
+    background-color:  rgb(255, 0, 0);
+  }
+
+  .join{
+    margin-right: 10px;
+    margin-left: 10;
+    border-style: solid; 
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 8.1px;
+    padding-bottom: 8.1px;
+    color: rgb(6, 95, 212);
+    border-color: rgb(6, 95, 212);
+    border-width: 0.8px;
+    border-radius: 2px;
+    transition:background-color 0.3s,color 0.3s,padding-left 0.1s,padding-right 0.1s,margin-left 0.1s,margin-right 0.1s;;
+  }
+
+  .join:hover{
+    padding-left: 17px;
+    padding-right: 17px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: rgb(6, 95, 212);
+    color: white;
+
+  }
+
+
+  .join:active{
+    opacity: 0.8;
+  }
+
+  .tweet{
+    margin-right: 10px;
+    margin-left: 10;
+    line-height: 22.5px;
+    font-weight: bold;
+    color: white;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(29, 155, 240);
+    border-radius:18px;
+    border: none;
+    transition: box-shadow 0.25s,padding-left 0.25s,padding-right 0.25s,margin-left 0.25s,margin-right 0.25s;
+  }
+
+  .tweet:hover{
+    padding-left: 17px;
+    padding-right: 17px;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tweet:active{
+    opacity: 0.7;
+  } 
+
+  .gif{
+    opacity: 0;
+  }
+
+  .gif:hover{
+    opacity: 1;
+  }
+
