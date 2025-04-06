@@ -2,6 +2,7 @@ let seconds=4;
 let confirmationInnerHTML=` Are you sure to reset score?<button class="confirmation">Yes</button><button class="confirmation">No</button>`;
 let resetScoreElem=document.querySelector('.reset-score-btn');
 let resetScoreConfirmationBtnElem;
+
 resetScoreElem.addEventListener('click',()=>{
     let resetScoreElem=document.querySelector('.reset-score-confirmation');
     if(resetScoreElem){
