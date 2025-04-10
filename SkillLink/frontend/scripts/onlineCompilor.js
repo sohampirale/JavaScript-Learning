@@ -6,27 +6,15 @@ const logoutBtnElem=document.getElementById('logout-btn');
 const loginCredentials=JSON.parse(localStorage.getItem('loginCredentials'));
 const greetUserElem=document.querySelector('.greet-user');
 const historyListElem=document.querySelector('.history-list');
-const URL = 'https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';
 let userData;
 let temoCodeStore=``;
-
-// async function checkAuthentication(){
-//     const response=await fetch(URL+'/authenticate',{
-//         method:'POST',
-//         body:loginCredentials,
-//         headers: {
-//             'Content-Type': 'application/json'
-//         } 
-//     })
-
-//     const authenticationResponse=await response.json();
-//     console.log('authentication Response ' +JSON.stringify(authenticationResponse));
-    
-//     if(!authenticationResponse.authentication){
-//         alert('authentication failed');
-//         localStorage.removeItem('loginCredentials')
-//     }
-// }
+let codespace=1;
+let URL;
+if(codespace==1){
+    URL='https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';
+} else if(codespace==2){
+    URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
+}
 
 const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
 const sidebar = document.querySelector('.sidebar');

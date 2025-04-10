@@ -5,8 +5,13 @@ const confirmPasswordElem=document.getElementById('confirm-password');
 const emailElem=document.getElementById('email');
 const signupBtnElem=document.getElementById('signup-btn');
 const signupFormElem=document.getElementById('signup-form');
-const URL='https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';
-
+let codespace=1;
+let URL;
+if(codespace==1){
+    URL='https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';
+} else if(codespace==2){
+    URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
+}
 signupFormElem.addEventListener('submit',(event)=>{
     event.preventDefault();
 })
