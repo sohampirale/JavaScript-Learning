@@ -55,7 +55,7 @@
   },
   {
     "username": "soham",
-    "totalCodes": 21,
+    "totalCodes": 27,
     "history": [
       {
         "id": 1,
@@ -181,6 +181,42 @@
         "id": 21,
         "code": "print('learnig middlewares3')",
         "output": "learnig middlewares3\n",
+        "language": "python"
+      },
+      {
+        "id": 22,
+        "code": "print('hey')",
+        "output": "hey\n",
+        "language": "python"
+      },
+      {
+        "id": 23,
+        "code": "print('hey leanring about cookie passing')",
+        "output": "hey leanring about cookie passing\n",
+        "language": "python"
+      },
+      {
+        "id": 24,
+        "code": "print('learning cookies')",
+        "output": "learning cookies\n",
+        "language": "python"
+      },
+      {
+        "id": 25,
+        "code": "print('learnign axios')",
+        "output": "learnign axios\n",
+        "language": "python"
+      },
+      {
+        "id": 26,
+        "code": "print('learning axios!')",
+        "output": "learning axios!\n",
+        "language": "python"
+      },
+      {
+        "id": 27,
+        "code": "print('heyy')",
+        "output": "heyy\n",
         "language": "python"
       }
     ]

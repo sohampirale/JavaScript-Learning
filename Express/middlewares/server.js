@@ -2,7 +2,7 @@ const { log } = require('console');
 const express = require('express')
 const fs= require('fs')
 const app=express();
-
+const cors=require('cors');
 const data={
     1:{
         value:'Data of user with id-1'
@@ -20,7 +20,9 @@ setInterval(()=>{
 
 const requestsByUsers={}
 
-// app.use(express.json())
+app.use(cors())
+
+app.use(express.json())
 
 let requests=0;
 
@@ -111,7 +113,6 @@ app.use(timeoutChecker)
 app.use(dailyRequestsChecker)
 
 app.use(reqCountIncreaser);
-
 
 app.get('/public',(req,res)=>{
     res.json({

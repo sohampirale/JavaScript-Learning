@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 const loginBtnElem=document.getElementById('login-btn');
 const usernameElem=document.getElementById('username');
 const passwordElem=document.getElementById('password');
@@ -12,6 +14,10 @@ if(codespace==1){
 } else if(codespace==2){
     URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
 }
+const api=axios.create({
+    baseURL:URL
+    // ,withCredentials:true
+})
 signupFormElem.addEventListener('submit',(event)=>{
     event.preventDefault();
 })
@@ -32,25 +38,25 @@ async function signupAttempt(){
         })
     }
 
-    const response=await fetch(URL+'/signup',{
-        method:'POST',
-        body:JSON.stringify({
+    const response=await api.post('/signup',{
             username,
             email,
             password
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }  
+        },
+        {
+           headers:{
+             'Content-Type': 'application/json'
+           }
     })
 
-    const signupResponse=await response.json();
+    const signupResponse=await response.data;
     if(signupResponse.status==200){
         console.log('singu successfull');
         localStorage.setItem('loginCredentials',JSON.stringify({
             username,
             token:signupResponse.token
         }))
+        document.cookie=`token=${signupResponse.token}`
         alert('localstorage also updated');
         window.location=URL+'/app';
     } else {
