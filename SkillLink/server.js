@@ -1,13 +1,10 @@
 const express = require('express');
 const path = require('path');
-const { stdin } = require('process');
-const { log } = require('util');
 const app = express();
 const port = 3000;
 const Judge0_URL = 'https://judge0-ce.p.rapidapi.com/submissions';
 const fs = require('fs');
 const axios =require('axios')
-// const { REFUSED } = require('dns');
 
 let testVar=1;
 
@@ -34,8 +31,6 @@ function randomTokenGenerator() {
 app.use(express.json());
 
 app.use('/', express.static(path.join(__dirname, 'frontend')));
-
-// app.use('/', express.static(path.join(__dirname, 'test')));
 
 app.get('/test',(req,res)=>{
    console.log('inside /test endpoint');
