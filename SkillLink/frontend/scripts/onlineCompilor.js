@@ -15,15 +15,15 @@ if(codespace==1){
 } else if(codespace==2){
     URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
 }
-
+const api=axios.create({
+    baseURL:URL
+})
 const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
 const sidebar = document.querySelector('.sidebar');
 
 toggleSidebarBtn.addEventListener('click', () => {
   sidebar.classList.toggle('active');
 });
-
-
 
 const newCodeElem=document.createElement('div');
 newCodeElem.classList.add('history-item');
@@ -42,15 +42,14 @@ function reloadPreviousCode(){
 async function getDataFromBackend(){
     //create in server then uncomment
     
-    const response=await fetch(URL+'/getData',{
-        method:'POST',
-        body:JSON.stringify(loginCredentials),
+    const response=await api.post('/getData',
+        loginCredentials,{
         headers: {
             'Content-Type': 'application/json'
-        }   
+        }
     })
     // await checkAuthentication();
-    const getDataResponse=await response.json();
+    const getDataResponse=await response.data;
     if(getDataResponse.status!=200){
         historyListElem.innerHTML=`<div class="history-item">Let's make the first compilation!:)</div>`
     } else {
@@ -90,15 +89,15 @@ codeAreaElem.addEventListener('keydown',async (event)=>{
 
 logoutBtnElem.addEventListener('click',async ()=>{
     localStorage.removeItem('loginCredentials');
-    const response=await fetch(URL+'/logout',{
-        method:'POST',
-        body:JSON.stringify(loginCredentials),
-        headers: {
-            "Content-Type": "application/json"
+    const response=await api.post('/logout',(loginCredentials),
+        {
+            headers: {
+                "Content-Type": "application/json"
+            }
         }
-    })
+    );
 
-    const logoutResponse=await response.json();
+    const logoutResponse=await response.data;
     console.log(JSON.stringify(logoutResponse));
     if(logoutResponse.status==200){
         console.log('login credentials removed form the localstorage');
@@ -120,22 +119,22 @@ async function work(){
     console.log(`POST request sent to ${URL}/run`);
     try {
         console.log('trying now from frontend');
-        const response = await fetch(`${URL}/run`, {
-            method: 'POST',
-            body: JSON.stringify({
+        const response = await api.post(`/run`, 
+             {
                 code: codeAreaElem.value,
                 language: selectedLangElem.value,
                 token:loginCredentials.token,
                 username:loginCredentials.username
-            }),
-            headers: {
-            'Content-Type': 'application/json'
+            },{
+                headers: {
+                'Content-Type': 'application/json'
+                }
             }
-        });
+        );
 
         // await checkAuthentication();
 
-        const finalOutput = await response.json();
+        const finalOutput = await response.data;
         console.log('in frontend finalOutput: ' + JSON.stringify(finalOutput));
 
         if (finalOutput.stderr) {

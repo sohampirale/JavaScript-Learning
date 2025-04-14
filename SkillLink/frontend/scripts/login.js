@@ -5,12 +5,17 @@ if(codespace==1){
 } else if(codespace==2){
     URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
 }
+const api=axios.create({
+    baseURL:URL,
+    withCredentials:true
+})
+
 const loginCredentials=JSON.parse(localStorage.getItem('loginCredentials'));
 const signupBtnElem=document.querySelector('.signup-btn');
 
 signupBtnElem.addEventListener('click',()=>{
     console.log('signup btn clicked');
-    window.location.href='../signup/signup.html';
+    window.location.href=URL+'/signup-pg';
 })
 
 if(loginCredentials){
@@ -31,18 +36,19 @@ async function loginAttempt(){
         return;
     }
 
-    const response= await fetch(URL+'/login',{
-        method:'POST',
-        body:JSON.stringify({
+    const response= await api.post('/login',
+        {
             username:usernameElem.value,
             password:passwordElem.value
-        }),
-        headers: {
+        },
+        {
             'Content-Type': 'application/json'
-        }    
-    })
+        }
+    )
     
-    const loginResponse=await response.json();
+    const loginResponse=await response.data;
+    console.log('login response : '+loginResponse);
+    
     if(loginResponse.status!=200){
         console.log('Failed to Login');
         console.log(loginResponse.message);
@@ -53,7 +59,11 @@ async function loginAttempt(){
             username:usernameElem.value,
             token:loginResponse.token
         }));
+        const date=new Date();
+        const fiveminsLater=new Date(date.getTime()+1*60*1000)
+        document.cookie=`token=${loginResponse.token} expires=${fiveminsLater.toUTCString()};`
         console.log('token stored to the localstorage');
+        alert('cookie also set')
         // alert('going to onlineCompilor.html')
         window.location.href='onlineCompilor.html'
     }

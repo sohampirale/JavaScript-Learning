@@ -1,12 +1,101 @@
 const express = require('express');
 const path = require('path');
+const cors=require('cors')
 const app = express();
 const port = 3000;
 const Judge0_URL = 'https://judge0-ce.p.rapidapi.com/submissions';
 const fs = require('fs');
 const axios =require('axios')
+const cookieParser=require('cookie-parser')
 
 let testVar=1;
+
+app.use(express.json());
+
+app.use(cors({
+    origin:function(origin,callback){
+        console.log('origin : '+origin);
+        
+        if(!origin){
+            console.log('API call received from postman or localhost (origin not specified)');
+            return callback(null,true)
+        }
+
+        if(allowedOrigins.includes(origin)){
+            console.log('Allowing cors from : '+origin);
+            return callback(null,true) 
+        } else {
+            return callback(new Error('Cannot allow access from ->'+origin));
+        }
+    },
+    credentials:true
+}))
+
+app.get('/signup-pg',(req,res)=>{
+    console.log('request received to /signup-pg');
+    
+    res.sendFile(path.join(__dirname,'frontend/signup/signup.html'))
+})
+
+app.get('/login-pg',(req,res)=>{
+    res.sendFile(path.join(__dirname,'frontend/login.login.html'));
+})
+
+app.get('/get-token',(req,res)=>{
+    console.log('inside /get-token');
+    
+    res.cookie('cookieFromBackend',randomTokenGenerator(),{
+        httpOnly: true,
+        secure: true,         // Only sent over HTTPS
+        sameSite: 'none',      
+        maxAge: 5 * 60 * 1000 // 
+    })
+    res.json({
+        message:'COokie(token) stored by the backend'
+    },)    
+})
+
+// app.use(cookieParser());
+
+app.get('/send-token',(req,res)=>{
+    console.log('req received at /send-token');
+    
+    const token=req.headers.token;
+    if(token){
+        console.log('token received is : '+token);
+        res.json({
+            message:'Token received successfully'
+        })
+    } else {
+        console.log('token not found');
+        res.json({
+            message:'Token not received'
+        })
+    }
+})
+
+
+
+app.get('/axios',(req,res)=>{
+    console.log('Inside GET axios');
+    res.json({
+        message:'returning json'
+    })
+})
+
+app.post('/axios',(req,res)=>{
+    console.log('Inside post axios');
+    res.json({
+        message:'Returing json from post axios'
+    })
+})
+
+app.put('/axios',(req,res)=>{
+    console.log('inside put axios');
+    res.json({
+        message:'Returning json from axios'
+    })
+})
 
 function authenticateToken(username, token) {
     const users = JSON.parse(fs.readFileSync('data/loggedInUsers.json', 'utf-8'));
@@ -28,7 +117,38 @@ function randomTokenGenerator() {
     return token;
 }
 
-app.use(express.json());
+const allowedOrigins = ['https://fantastic-pancake-7v7p4q766jrg3pg7q-5503.app.github.dev',
+    'https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev',
+    'http://localhost:3000',
+    'https://hoppscotch.io',
+    'https://friendly-space-sniffle-jjqg44gjp9v525r9x-5503.app.github.dev'
+]
+
+
+app.use(checkCookie)
+
+function checkCookie(req,res,next){
+    console.log('inside checkCookie');
+    
+    if(req.cookies  && Object.keys(req.cookies).length > 0){
+        console.log('Cookies found in req : '+JSON.stringify(req.cookies));
+    } else {
+        console.log('cookies not found in the request');
+    }
+    next();
+}
+
+app.get('/getCookie',(req,res)=>{   
+    res.cookie('cookieFromBackend','testing1234',{
+        httpOnly:false,
+        secure: true,
+        sameSite: 'Lax',
+        maxAge: 5 * 60 * 1000  
+    })
+    res.json({
+        message:'Cookie attached from backend'
+    })
+})
 
 app.use('/', express.static(path.join(__dirname, 'frontend')));
 
@@ -328,6 +448,9 @@ app.post('/logout', async (req, res) => {
     const newL = loggedInUsers.length;
 
     fs.writeFileSync('data/loggedInUsers.json', JSON.stringify(loggedInUsers, null, 2));
+    res.clearCookie('token')
+    console.log('token(cookie) removed from the backend');
+    
     res.json({
         status: 200,
         message: 'User Logged Out Successfully!'
