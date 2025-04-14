@@ -1,14 +1,13 @@
 const express = require('express');
 const path = require('path');
 const cors=require('cors')
-// const { stdin } = require('process');
-// const { log } = require('util');
 const app = express();
 const port = 3000;
 const Judge0_URL = 'https://judge0-ce.p.rapidapi.com/submissions';
 const fs = require('fs');
 const axios =require('axios')
 const cookieParser=require('cookie-parser')
+
 let testVar=1;
 
 app.use(express.json());
@@ -151,17 +150,7 @@ app.get('/getCookie',(req,res)=>{
     })
 })
 
-
-
 app.use('/', express.static(path.join(__dirname, 'frontend')));
-
-// app.use('/', express.static(path.join(__dirname, 'test')));
-
-app.get('/cors_learning',(req,res)=>{
-    res.status(200).json({
-        message:'Backend Allowed you to make this call'
-    })
-})
 
 app.get('/test',(req,res)=>{
    console.log('inside /test endpoint');

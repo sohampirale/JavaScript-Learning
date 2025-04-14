@@ -15,4 +15,5 @@ btnElem.addEventListener('click',async()=>{
     }catch(err){
         console.log('Error occured : '+err);
     }
+  
 })
