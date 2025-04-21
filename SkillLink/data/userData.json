@@ -1,23 +1,5 @@
 [
   {
-    "username": "sanvi",
-    "totalCodes": 2,
-    "history": [
-      {
-        "id": 1,
-        "code": "print('first code in python')",
-        "output": "first code in python\n",
-        "language": "python"
-      },
-      {
-        "id": 2,
-        "code": "print('second code in python')",
-        "output": "second code in python\n",
-        "language": "python"
-      }
-    ]
-  },
-  {
     "username": "atharvsankpal7",
     "totalCodes": 2,
     "history": [
@@ -55,7 +37,7 @@
   },
   {
     "username": "soham",
-    "totalCodes": 27,
+    "totalCodes": 51,
     "history": [
       {
         "id": 1,
@@ -217,6 +199,191 @@
         "id": 27,
         "code": "print('heyy')",
         "output": "heyy\n",
+        "language": "python"
+      },
+      {
+        "id": 28,
+        "code": "print('leanring jwt')",
+        "output": "leanring jwt\n",
+        "language": "python"
+      },
+      {
+        "id": 29,
+        "code": "print('learning jwt!'",
+        "output": "  File \"script.py\", line 2\n    \n                         ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 30,
+        "code": "print('learning sync')",
+        "output": "learning sync\n",
+        "language": "python"
+      },
+      {
+        "id": 31,
+        "code": "print('learning sync2'",
+        "output": "  File \"script.py\", line 2\n    \n                          ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 32,
+        "code": "print(learning sync2)",
+        "output": "  File \"script.py\", line 1\n    print(learning sync2)\n                   ^\nSyntaxError: invalid syntax\n",
+        "language": "python"
+      },
+      {
+        "id": 33,
+        "code": "print('learning sync3'",
+        "output": "  File \"script.py\", line 2\n    \n                          ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 34,
+        "code": "print('heyy1')",
+        "output": "heyy1\n",
+        "language": "python"
+      },
+      {
+        "id": 35,
+        "code": "print('heyy2'",
+        "output": "  File \"script.py\", line 2\n    \n                 ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 36,
+        "code": "print('hey3')",
+        "output": "hey3\n",
+        "language": "python"
+      },
+      {
+        "id": 37,
+        "code": "print('hey4'",
+        "output": "  File \"script.py\", line 2\n    \n                ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 38,
+        "code": "print('hey5'",
+        "output": "  File \"script.py\", line 2\n    \n                ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 39,
+        "code": "print('hey6')",
+        "output": "hey6\n",
+        "language": "python"
+      },
+      {
+        "id": 40,
+        "code": "print('hey6')",
+        "output": "hey6\n",
+        "language": "python"
+      },
+      {
+        "id": 41,
+        "code": "print('hey7')",
+        "output": "hey7\n",
+        "language": "python"
+      },
+      {
+        "id": 42,
+        "code": "print('hey8'",
+        "output": "  File \"script.py\", line 2\n    \n                ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 43,
+        "code": "print('hey9')",
+        "output": "hey9\n",
+        "language": "python"
+      },
+      {
+        "id": 44,
+        "code": "print('hey10')",
+        "output": "hey10\n",
+        "language": "python"
+      },
+      {
+        "id": 45,
+        "code": "print('hey10)",
+        "output": "  File \"script.py\", line 1\n    print('hey10)\n                ^\nSyntaxError: EOL while scanning string literal\n",
+        "language": "python"
+      },
+      {
+        "id": 46,
+        "code": "print('hey11)",
+        "output": "  File \"script.py\", line 1\n    print('hey11)\n                ^\nSyntaxError: EOL while scanning string literal\n",
+        "language": "python"
+      },
+      {
+        "id": 47,
+        "code": "print('hey11",
+        "output": "  File \"script.py\", line 1\n    print('hey11\n               ^\nSyntaxError: EOL while scanning string literal\n",
+        "language": "python"
+      },
+      {
+        "id": 48,
+        "code": "print('hey11'",
+        "output": "  File \"script.py\", line 2\n    \n                 ^\nSyntaxError: unexpected EOF while parsing\n",
+        "language": "python"
+      },
+      {
+        "id": 49,
+        "code": "print('hey12')",
+        "output": "hey12\n",
+        "language": "python"
+      },
+      {
+        "id": 50,
+        "code": "print('hey13)",
+        "output": "  File \"script.py\", line 1\n    print('hey13)\n                ^\nSyntaxError: EOL while scanning string literal\n",
+        "language": "python"
+      },
+      {
+        "id": 51,
+        "code": "print('heyyy13')",
+        "output": "heyyy13\n",
+        "language": "python"
+      }
+    ]
+  },
+  {
+    "username": "sanvi",
+    "totalCodes": 6,
+    "history": [
+      {
+        "id": 1,
+        "code": "print('first code in python')",
+        "output": "first code in python\n",
+        "language": "python"
+      },
+      {
+        "id": 2,
+        "code": "print('second code in python')",
+        "output": "second code in python\n",
+        "language": "python"
+      },
+      {
+        "id": 3,
+        "code": "print('third code')",
+        "language": "cpp"
+      },
+      {
+        "id": 4,
+        "code": "print('third code')",
+        "output": "third code\n",
+        "language": "python"
+      },
+      {
+        "id": 5,
+        "code": "print('1 code')\nprint('2code)\nprint('3 code')\nprint('4 code)",
+        "output": "  File \"script.py\", line 2\n    print('2code)\n                ^\nSyntaxError: EOL while scanning string literal\n",
+        "language": "python"
+      },
+      {
+        "id": 6,
+        "code": "print('1 code')\nprint('2code')\nprint('3 code')\nprint('4 code)",
+        "output": "  File \"script.py\", line 4\n    print('4 code)\n                 ^\nSyntaxError: EOL while scanning string literal\n",
         "language": "python"
       }
     ]

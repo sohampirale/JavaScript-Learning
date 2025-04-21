@@ -1,0 +1,189 @@
+{
+  "sangli": [
+    {
+      "bookname": "Automata and Computability",
+      "ownerId": "soham123",
+      "pricePerDay": 40,
+      "caterories": [
+        "engineering",
+        "computer science",
+        "theory"
+      ]
+    },
+    {
+      "bookname": "The Pragmatic Programmer",
+      "ownerId": "dev_amit",
+      "pricePerDay": 60,
+      "caterories": [
+        "software",
+        "development",
+        "engineering"
+      ]
+    },
+    {
+      "bookname": "Robotics: Modelling, Planning and Control",
+      "ownerId": "priya77",
+      "pricePerDay": 55,
+      "caterories": [
+        "engineering",
+        "robotics",
+        "automation"
+      ]
+    },
+    {
+      "bookname": "Introduction to Algorithms",
+      "ownerId": "niraj_ds",
+      "pricePerDay": 70,
+      "caterories": [
+        "technical",
+        "algorithms",
+        "computer science"
+      ]
+    },
+    {
+      "bookname": "Operating System Concepts",
+      "ownerId": "shreyaOS",
+      "pricePerDay": 45,
+      "caterories": [
+        "engineering",
+        "systems",
+        "technical"
+      ]
+    },
+    {
+      "bookname": "Testing",
+      "ownerId": "soham",
+      "pricePerDay": 50,
+      "categories": [
+        "testing category"
+      ]
+    },
+    {
+      "bookname": "Testing",
+      "ownerId": "soham",
+      "pricePerDay": 50,
+      "categories": [
+        "testing category"
+      ]
+    },
+    {
+      "bookname": "Testing2",
+      "ownerId": "soham",
+      "pricePerDay": 423,
+      "categories": [
+        "eng",
+        "mech"
+      ]
+    }
+  ],
+  "ashta": [
+    {
+      "bookname": "Engineering Mathematics Vol. 1",
+      "ownerId": "mohit98",
+      "pricePerDay": 35,
+      "caterories": [
+        "engineering",
+        "mathematics",
+        "basics"
+      ]
+    },
+    {
+      "bookname": "Let Us C",
+      "ownerId": "rahul_c",
+      "pricePerDay": 30,
+      "caterories": [
+        "programming",
+        "C language",
+        "technical"
+      ]
+    },
+    {
+      "bookname": "Data Structures Using C",
+      "ownerId": "pranali_ds",
+      "pricePerDay": 40,
+      "caterories": [
+        "computer science",
+        "technical",
+        "engineering"
+      ]
+    },
+    {
+      "bookname": "Digital Electronics",
+      "ownerId": "sneha123",
+      "pricePerDay": 45,
+      "caterories": [
+        "electronics",
+        "engineering",
+        "logic"
+      ]
+    },
+    {
+      "bookname": "Testing",
+      "ownerId": "sanvi",
+      "pricePerDay": 50,
+      "categories": [
+        "testing category"
+      ]
+    },
+    {
+      "bookname": "Testing",
+      "ownerId": "sanvi",
+      "pricePerDay": 50,
+      "categories": [
+        "testing category"
+      ]
+    }
+  ],
+  "mumbai": [
+    {
+      "bookname": "Cracking the Coding Interview",
+      "ownerId": "coder_arjun",
+      "pricePerDay": 65,
+      "caterories": [
+        "interview",
+        "DSA",
+        "technical"
+      ]
+    },
+    {
+      "bookname": "Machine Learning Yearning",
+      "ownerId": "ai_sam",
+      "pricePerDay": 75,
+      "caterories": [
+        "machine learning",
+        "AI",
+        "technical"
+      ]
+    },
+    {
+      "bookname": "JavaScript: The Good Parts",
+      "ownerId": "web_dev_diya",
+      "pricePerDay": 50,
+      "caterories": [
+        "web development",
+        "JavaScript",
+        "frontend"
+      ]
+    },
+    {
+      "bookname": "Computer Networks",
+      "ownerId": "netra99",
+      "pricePerDay": 60,
+      "caterories": [
+        "networking",
+        "technical",
+        "systems"
+      ]
+    },
+    {
+      "bookname": "Clean Code",
+      "ownerId": "dev_rishi",
+      "pricePerDay": 55,
+      "caterories": [
+        "software engineering",
+        "clean code",
+        "design"
+      ]
+    }
+  ]
+}

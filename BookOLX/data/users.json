@@ -1,0 +1,12 @@
+{
+  "sanvi": {
+    "password": "pw@2",
+    "email": "sanvi@gmail.com",
+    "unsuccessfulAttempts": 0
+  },
+  "soham": {
+    "password": "pw@1",
+    "email": "soham@gmail.com",
+    "unsuccessfulAttempts": 0
+  }
+}

@@ -7,7 +7,7 @@ const confirmPasswordElem=document.getElementById('confirm-password');
 const emailElem=document.getElementById('email');
 const signupBtnElem=document.getElementById('signup-btn');
 const signupFormElem=document.getElementById('signup-form');
-let codespace=1;
+let codespace=2;
 let URL;
 if(codespace==1){
     URL='https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';

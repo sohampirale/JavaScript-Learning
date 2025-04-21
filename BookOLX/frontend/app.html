@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VBooks</title>
+  <link rel="stylesheet" href="styles/app.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">VBooks</div>
+    <nav class="nav-links">
+      <span class="nav-link active"   data-target="home">Home</span>
+      <span class="nav-link"          data-target="borrowed">Borrowed Books</span>
+      <span class="nav-link"          data-target="my-books">My Books</span>
+      <span class="nav-link"          data-target="profile">My Profile</span>
+      <span class="nav-link"          data-target="messages">Messages</span>
+      <span class="nav-link"          data-target="add-book">Add Book</span>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    
+    <!-- HOME -->
+    <section id="home" class="section visible">
+      <h2>Available Books Near You</h2>
+      <div class="book-list">
+        <div class="book-card">
+          <div class="book-image-container">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/41jEbK-jG+L._SX376_BO1,204,203,200_.jpg"
+                 alt="Clean Code" class="book-image">
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">Clean Code</h3>
+            <p class="book-price">₹15/hour</p>
+            <button class="message-btn">Send Message</button>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-image-container">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51b7XbfMIIL._SX379_BO1,204,203,200_.jpg"
+                 alt="JavaScript: The Good Parts" class="book-image">
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">JavaScript: The Good Parts</h3>
+            <p class="book-price">₹10/hour</p>
+            <button class="message-btn">Send Message</button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- BORROWED BOOKS -->
+    <section id="borrowed" class="section">
+      <h2>Borrowed Books</h2>
+      <div class="book-list">
+        <div class="book-card">
+          <div class="book-image-container">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/41as+WafrFL._SX384_BO1,204,203,200_.jpg"
+                 alt="Introduction to Algorithms" class="book-image">
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">Introduction to Algorithms</h3>
+            <p class="book-price">₹20/hour</p>
+            <button class="message-btn">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY BOOKS -->
+    <section id="my-books" class="section ">
+      <h2>My Books</h2>
+      <div class="book-list">
+
+        <div class="book-card">
+          <div class="book-image-container">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51oHUvYzbsL._SX379_BO1,204,203,200_.jpg"
+                 alt="The Pragmatic Programmer" class="book-image">
+          </div>
+          <div class="book-details">
+            <h3 class="book-title">The Pragmatic Programmer</h3>
+            <p class="book-price">₹12/hour</p>
+            <button class="message-btn">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="section">
+      <h2>My Profile</h2>
+      <div class="profile-info">
+        <!-- dynamic profile info -->
+      </div>
+    </section>
+
+    <!-- MESSAGES -->
+    <section id="messages" class="section">
+      <h2>Messages</h2>
+      <div class="message-box">
+        <!-- dynamic messages -->
+      </div>
+    </section>
+
+    <!-- ADD BOOK -->
+    <section id="add-book" class="section">
+      <div class="add-book-form-container">
+        <h2>Add a Book</h2>
+        <form class="add-book-form">
+          <div class="form-group">
+            <label for="book-title">Book Title</label>
+            <input type="text" id="book-title" placeholder="Enter book title" required />
+          </div>
+          <div class="form-group">
+            <label for="book-image">Image URL</label>
+            <input type="url" id="book-image" placeholder="Paste image link here" required />
+          </div>
+          <div class="form-group">
+            <label for="book-price">Price per Hour (₹)</label>
+            <input type="number" id="book-price" placeholder="e.g. 10" required />
+          </div>
+          <div class="form-group">
+            <label for="book-description">Description</label>
+            <textarea id="book-description" rows="4"
+                      placeholder="Write something about the book..."></textarea>
+          </div>
+          <button type="submit" class="submit-book-btn">Post Book</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

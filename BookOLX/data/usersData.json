@@ -1,0 +1,22 @@
+{
+  "sanvi": {
+    "books": [],
+    "rentedBooks": [],
+    "borrowedBooks": [],
+    "wallet": {},
+    "incomingRequests": [],
+    "outgoingRequests": [
+      1
+    ]
+  },
+  "soham": {
+    "books": [],
+    "rentedBooks": [],
+    "borrowedBooks": [],
+    "wallet": {},
+    "incomingRequests": [
+      1
+    ],
+    "outgoingRequests": []
+  }
+}

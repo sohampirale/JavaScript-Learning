@@ -1,14 +1,21 @@
-let codespace=1;
+let codespace=2;
 let URL;
 if(codespace==1){
     URL='https://friendly-space-sniffle-jjqg44gjp9v525r9x-3000.app.github.dev';
 } else if(codespace==2){
     URL='https://fantastic-pancake-7v7p4q766jrg3pg7q-3000.app.github.dev'
 }
+
 const api=axios.create({
     baseURL:URL,
     withCredentials:true
 })
+
+// async function defaultLogin(){
+//     const response=await api.get(URL+'/app')   
+// }
+
+// defaultLogin();
 
 const loginCredentials=JSON.parse(localStorage.getItem('loginCredentials'));
 const signupBtnElem=document.querySelector('.signup-btn');
@@ -18,13 +25,15 @@ signupBtnElem.addEventListener('click',()=>{
     window.location.href=URL+'/signup-pg';
 })
 
-if(loginCredentials){
-    console.log('user is already logged in ');
-    console.log('user data : '+JSON.stringify(loginCredentials));
-    window.location=URL+'/app';
-} else {
-    console.log('user not currently logged in');
-}
+
+
+// if(loginCredentials){
+//     console.log('user is already logged in ');
+//     console.log('user data : '+JSON.stringify(loginCredentials));
+//     window.location=URL+'/app';
+// } else {
+//     console.log('user not currently logged in');
+// }
 
 const usernameElem=document.getElementById('username');
 const passwordElem=document.getElementById('password');
