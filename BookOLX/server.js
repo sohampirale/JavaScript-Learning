@@ -8,9 +8,10 @@ const axios = require('axios')
 const cookieParser = require('cookie-parser')
 const JWT_PW = "Soham Pirale";
 const jwt = require('jsonwebtoken');
-const { json } = require('stream/consumers');
+const {storeNewBookInAllBooks,storeNewBookToUsersData}=require('./backend/modules/postBooks')
+const {extractDataFromToken}=require('./backend/utils/token')
+//variables
 
-//varibles
 let user = undefined;
 let testVar = 1;
 
@@ -22,11 +23,6 @@ const allowedOrigins = ['https://fantastic-pancake-7v7p4q766jrg3pg7q-5503.app.gi
 ]
 
 //utils
-
-function extractDataFromToken(token) {
-    return jwt.decode(token)
-}
-
 
 //functions
 
@@ -89,38 +85,9 @@ function logger(req, res, next) {
     next();
 }
 
-function storeNewBookForRent(bookname, username, city, pricePerDay, categories) {
-    const allBooks = JSON.parse(fs.readFileSync('data/allBooks.json', 'utf-8'));
-    const booksWithParticularCity = allBooks[city]
-    const newBookObj = {
-        bookname,
-        ownerId: username,
-        pricePerDay,
-        categories
-    }
-    if (!booksWithParticularCity) {
-        allBooks[city] = [newBookObj]
-    } else {
-        booksWithParticularCity.push(newBookObj)
-    }
-    fs.writeFileSync('data/allBooks.json', JSON.stringify(allBooks, null, 2))
-    console.log('new Book : ' + bookname + ' stored in allBooks.json');
-}
-
-function storeNewBookToUserProfile(bookname, username, city, pricePerDay, categories) {
-    const allUsers = JSON.parse(fs.readFileSync('data/usersData.json', 'utf-8'));
-    const user = allUsers[username]
-    const newBookObj = {
-        bookname,
-        pricePerDay,
-        categories
-    }
-    user.books.push(newBookObj);
-    fs.writeFileSync('data/usersData.json', JSON.stringify(allUsers, null, 2))
-    console.log('new Book : ' + bookname + ' posted');
-}
 
 //requestBook
+
 function addRequestForABookToUsersData(transactionId, clientusername,ownerusername,res) {
 
    const filepath=path.join(__dirname,'data','usersData.json');
@@ -148,7 +115,13 @@ function addRequestForABookInPendingDeals(ownerusername, bookname, clientusernam
         clientAggrement: false,
         clientAggrementTime:null,
         ownerAggrement: false,
-        ownerAggrementTime:null
+        ownerAggrementTime:null,
+        startTime:undefined,
+        endTime:undefined,
+        returnTime:undefined,
+        ownerReturnAggrement:null,
+        clientReturnAggrement:null,
+        returnTimeValidation:null
     }
 
     pendingDeals[transactionId] = newTransactionObj
@@ -185,17 +158,21 @@ function makeDealRequest(token, transactionId, res) {
     const {username} = extractDataFromToken(token)
     
     if (username == transactionObj.clientusername) {
+        transactionObj.clientAggrementTime=new Date();
         transactionObj.clientAggrement = true
     } else if (username == transactionObj.ownerusername) {
+        transactionObj.ownerAggrementTime=new Date();
         transactionObj.ownerAggrement = true
     }
 
     if (transactionObj.clientAggrement && transactionObj.ownerAggrement) {
-        const filepath2 = path.join(__dirname, 'data', 'completedDeals.json')
-        const completedDeals = JSON.parse(fs.readFileSync(filepath2, 'utf-8'))
-        completedDeals[transactionId] = transactionObj
+        const filepath2 = path.join(__dirname, 'data', 'ongoingDeals.json')
+        const ongoingDeals = JSON.parse(fs.readFileSync(filepath2, 'utf-8'))
+        ongoingDeals[transactionId] = transactionObj
         delete pendingDeals[transactionId]
-        fs.writeFileSync(filepath2, JSON.stringify(completedDeals, null, 2))
+        transactionObj.startTime=new Date()
+        transactionObj.endTime=new Date(Date.now()+(1000*60*2)) //2 mins for temp
+        fs.writeFileSync(filepath2, JSON.stringify(ongoingDeals, null, 2))
         fs.writeFileSync(filepath, JSON.stringify(pendingDeals, null, 2))
         console.log('Deal completed!');
         res.status(200).json({ msg: 'Deal succeessfull!' })
@@ -216,6 +193,53 @@ function makeDealRequest(token, transactionId, res) {
 
 }
 
+//returnBook
+
+function returnBookAddNewCompletedDeal(transactionId,dealObj){
+    const filepath=path.join(__dirname,'data','completedDeals.json')
+    const completedDeals=JSON.parse(fs.readFileSync(filepath,'utf-8'))
+    completedDeals[transactionId]=dealObj
+    fs.writeFileSync(filepath,JSON.stringify(completedDeals,null,2))
+}
+
+function returnBook(username,transactionId,res){  
+    const filepath=path.join(__dirname,'data','ongoingDeals.json')
+    const ongoingDeals=JSON.parse(fs.readFileSync(filepath,'utf-8'))
+
+    const dealObj=ongoingDeals[transactionId]
+    if(!dealObj){
+        return res.status(401).json({msg:'Invalid Transaction Id'})
+    }
+    if(username==dealObj.clientusername){
+        dealObj.clientReturnAggrement=true
+    } else if(username==dealObj.ownerusername){
+        dealObj.ownerReturnAggrement=true
+    }
+
+    if(dealObj.clientReturnAggrement && dealObj.ownerReturnAggrement){
+        const returnTime=new Date(dealObj.returnTimeValidation)
+        const delay=(returnTime-(new Date()))/(1000*60)
+        console.log('Delay = '+delay);
+        if(delay>=0){
+            res.status(200).json({msg:'returnTimeValidation Successfull!'})
+            returnBookAddNewCompletedDeal(transactionId,dealObj)
+            delete ongoingDeals[transactionId]
+        } else {
+             res.status(401).json({msg:'Request Timeout!'+delay+' mins late'})
+        }
+    } else {
+        dealObj.returnTimeValidation=new Date(Date.now()+(1000*60*5))
+
+        if(username==dealObj.clientusername){
+            res.status(201).json({msg:'Waiting for owner to accept the book'})
+        } else if(username==dealObj.ownerusername){
+            res.status(201).json({msg:'Waiting for client to return the book'})
+        }
+    }
+
+    fs.writeFileSync(filepath,JSON.stringify(ongoingDeals,null,2))
+}
+
 // app.use(cors({
 //     origin:function(origin,callback){
 //         console.log('origin : '+origin);
@@ -234,6 +258,8 @@ function makeDealRequest(token, transactionId, res) {
 //     },
 //     credentials:true
 // }))
+
+app.use(cors())
 
 app.use(express.json());
 
@@ -271,10 +297,11 @@ app.post('/signup', (req, res) => {
         email,
         unsuccessfulAttempts:0
     }
-    const newUsersDataObj={
-        books:[],
-        rentedBooks:[],
-        borrowedBooks:[],
+
+    const newUserDataObj={
+        books:{},
+        rentedBooks:{},
+        borrowedBooks:{},
         wallet:{
             balance:0,
             spent:0,
@@ -283,8 +310,9 @@ app.post('/signup', (req, res) => {
         incomingRequests:[],
         outgoingRequests:[]
     }
+
     users[username]=newUserObj
-    usersData[username]=newUsersDataObj
+    usersData[username]=newUserDataObj
     fs.writeFileSync(filepath1,JSON.stringify(users,null,2))
     fs.writeFileSync(filepath2,JSON.stringify(usersData,null,2))
     res.status(200).json({msg:'Signup Successful!'})
@@ -414,69 +442,16 @@ app.post('/logout', authMiddleware, async (req, res) => {
     }
 })
 
-app.post('/run', authMiddleware, async (req, res) => {
-    console.log('backend call to /run');
-    console.log("req.body:", req.body);
-
-    const { code, language } = req.body;
-    const token = req.cookies.token;
-    if (!code || !language) {
-        console.log('unsuffient fields received');
-        return res.status(400).json({ error: "insufficient fields" });
-    }
-
-    let username, decodedInfo
-    try {
-        decodedInfo = jwt.verify(token, JWT_PW);
-    } catch (err) {
-        console.log('token verificaiton failed');
-    }
-
-    if (decodedInfo)
-        username = decodedInfo.username
-    else {
-        console.log('decodedInfo is undefined');
-        return res.json({ msg: 'DecodedInfo is undefined' })
-    }
-    const lang_id = lang_ids[language];
-    console.log('code : ' + code);
-    console.log('lang : ' + language);
-    console.log('language id : ' + lang_id);
-
-    try {
-        const tokenObj = await postToJudge0(lang_id, code);
-
-        if (!tokenObj.token) {
-            console.log('tokenObj does not have token');
-
-            return res.status(501).json(tokenObj)
-        }
-        const finalOutput = await getFromJudge0(tokenObj.token);
-
-        if (finalOutput.stderr) {
-            console.log('code failed');
-
-            res.status(400).json(finalOutput)
-            storeTheNewCode(code, finalOutput.stderr, username, language)
-        } else {
-            res.status(200).json(finalOutput);
-            storeTheNewCode(code, finalOutput.stdout, username, language)
-        }
-    } catch (err) {
-        console.log('Error Occured : ' + err.message);
-        res.status(500).json({ stderr: "Error occured -from backend" })
-        storeTheNewCode(code, finalOutput.stderr, username, language)
-    }
-
-})
-
 app.get('/getRecommendations', (req, res) => {
-    const token = req.headers.token;
-    const decodedInfo = jwt.decode(token)
-    const allBooks = JSON.parse(fs.readFileSync('data/allBooks.json', 'utf-8'));
-    const city = decodedInfo.city;
-    const booksWithParticularCity = allBooks[city];
-    return res.status(200).json({ books: booksWithParticularCity })
+    const token=req.headers.token;
+    const {city}=extractDataFromToken(token)
+    const filepath=path.join(__dirname,'data','allBooks.json')
+    const allBooks=JSON.parse(fs.readFileSync(filepath,'utf-8'))
+    const cityBooks=allBooks[city];
+    if(!cityBooks){
+        return res.status(203).json({msg:'This city currently does not have any books availaible for rent'})
+    } 
+
 })
 
 app.post('/addBook', (req, res) => {
@@ -486,8 +461,8 @@ app.post('/addBook', (req, res) => {
     const city = decodedInfo.city
     const { bookname, pricePerDay, categories } = req.body
 
-    storeNewBookForRent(bookname, username, city, pricePerDay, categories)
-    storeNewBookToUserProfile(bookname, username, city, pricePerDay, categories)
+    const bookId=storeNewBookInAllBooks(bookname, username, city, pricePerDay, categories)
+    storeNewBookToUsersData(bookname, username, city, pricePerDay, categories,bookId)
 
     console.log('Book : ' + bookname + ' added successfully to two places');
     res.status(200).json({ msg: 'Book posted successfully' })
@@ -516,6 +491,14 @@ app.post('/makeDeal', (req, res) => {
     const transactionId = req.body.transactionId
 
     makeDealRequest(token,transactionId,res)
+})
+
+app.post('/returnBook',(req,res)=>{
+    console.log('inside /returnBook');
+    const token=req.headers.token
+    const transactionId=req.body.transactionId
+    const {username}=extractDataFromToken(token)
+    return returnBook(username,transactionId,res)
 })
 
 app.listen(port, () => {

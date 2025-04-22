@@ -1,22 +1,55 @@
 {
   "sanvi": {
-    "books": [],
-    "rentedBooks": [],
-    "borrowedBooks": [],
+    "books": {
+      "2": {
+        "bookname": "Second_Book_From_Sanvi",
+        "pricePerDay": 25,
+        "categories": [
+          "enginnering",
+          "tech"
+        ]
+      },
+      "6": {
+        "bookname": "Second_Book_From_Sanvi",
+        "pricePerDay": 20,
+        "categories": [
+          "python",
+          "robotics"
+        ]
+      },
+      "7": {
+        "bookname": "Third_Book_From_Sanvi",
+        "pricePerDay": 20,
+        "categories": [
+          "python",
+          "robotics"
+        ]
+      }
+    },
+    "rentedBooks": {},
+    "borrowedBooks": {},
+    "wallet": {},
+    "incomingRequests": [
+      1
+    ],
+    "outgoingRequests": []
+  },
+  "soham": {
+    "books": {},
+    "rentedBooks": {},
+    "borrowedBooks": {},
     "wallet": {},
     "incomingRequests": [],
     "outgoingRequests": [
       1
     ]
   },
-  "soham": {
-    "books": [],
-    "rentedBooks": [],
-    "borrowedBooks": [],
-    "wallet": {},
-    "incomingRequests": [
-      1
-    ],
-    "outgoingRequests": []
+  "sanjivani": {
+    "bookname": "Second_Book_From_Sanjivani",
+    "pricePerDay": 45,
+    "categories": [
+      "arts",
+      "psychology"
+    ]
   }
 }

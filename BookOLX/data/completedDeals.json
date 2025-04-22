@@ -1,12 +1,19 @@
 {
   "1": {
-    "bookname": "First_Requested_Book!",
-    "period": "5",
-    "pricePerDay": 70,
-    "offeredprice": "350",
-    "clientusername": "sanvi",
-    "ownerusername": "soham",
+    "bookname": "First_Book_Requested_From_Soham",
+    "period": 2,
+    "pricePerDay": "40",
+    "offeredprice": "80",
+    "clientusername": "soham",
+    "ownerusername": "sanvi",
     "clientAggrement": true,
-    "ownerAggrement": true
+    "clientAggrementTime": "2025-04-21T15:57:54.879Z",
+    "ownerAggrement": true,
+    "ownerAggrementTime": "2025-04-21T15:57:36.024Z",
+    "ownerReturnAggrement": true,
+    "clientReturnAggrement": true,
+    "returnTimeValidation": "2025-04-21T16:03:37.634Z",
+    "startTime": "2025-04-21T15:57:54.879Z",
+    "endTime": "2025-04-21T15:59:54.879Z"
   }
 }
