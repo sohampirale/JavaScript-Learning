@@ -10,6 +10,8 @@ const JWT_PW = "Soham Pirale";
 const jwt = require('jsonwebtoken');
 const {storeNewBookInAllBooks,storeNewBookToUsersData}=require('./backend/modules/postBooks')
 const {extractDataFromToken}=require('./backend/utils/token')
+const {returnBookAddNewCompletedDeal,returnBook} =require('./backend/modules/returnBook')
+const {addRequestForABookToUsersData,addRequestForABookInPendingDeals}=require('./backend/modules/requestBook')
 //variables
 
 let user = undefined;
@@ -21,8 +23,6 @@ const allowedOrigins = ['https://fantastic-pancake-7v7p4q766jrg3pg7q-5503.app.gi
     'https://hoppscotch.io',
     'https://friendly-space-sniffle-jjqg44gjp9v525r9x-5503.app.github.dev'
 ]
-
-//utils
 
 //functions
 
@@ -54,12 +54,8 @@ function removeDoubleLogin(username) {
 
 function authMiddleware(req, res, next) {
     console.log('inside authMiddleware');
-    console.log('req.url : ' + req.url);
-    if (req.url == '/login-pg' || req.url == '/signup-pg') {
-        console.log('from ');
-        return next();
-    }
-    const token = req.cookies.token;
+
+    const token = req.headers.token;
     console.log('token : ' + token);
 
     if (!token) {
@@ -85,159 +81,12 @@ function logger(req, res, next) {
     next();
 }
 
-
-//requestBook
-
-function addRequestForABookToUsersData(transactionId, clientusername,ownerusername,res) {
-
-   const filepath=path.join(__dirname,'data','usersData.json');
-   const usersData=JSON.parse(fs.readFileSync(filepath,'utf-8'))
-   
-    const client=usersData[clientusername]
-    const owner=usersData[ownerusername]
-    client.outgoingRequests.push(transactionId)
-    owner.incomingRequests.push(transactionId)
-    fs.writeFileSync(filepath,JSON.stringify(usersData,null,2))
-    res.status(200).json({msg:'Request for the book is successfull'})
-}
-
-function addRequestForABookInPendingDeals(ownerusername, bookname, clientusername, period, pricePerDay,offeredprice) {
-    const pathfile = path.join(__dirname, 'data', 'pendingDeals.json')
-    const pendingDeals = JSON.parse(fs.readFileSync(pathfile, 'utf-8'))
-    const transactionId = pendingDeals.transactionId++;
-    const newTransactionObj = {
-        bookname,
-        period,
-        pricePerDay,
-        offeredprice,
-        clientusername,
-        ownerusername,
-        clientAggrement: false,
-        clientAggrementTime:null,
-        ownerAggrement: false,
-        ownerAggrementTime:null,
-        startTime:undefined,
-        endTime:undefined,
-        returnTime:undefined,
-        ownerReturnAggrement:null,
-        clientReturnAggrement:null,
-        returnTimeValidation:null
-    }
-
-    pendingDeals[transactionId] = newTransactionObj
-    console.log('New pending transaction initiated');
-    fs.writeFileSync(pathfile, JSON.stringify(pendingDeals, null, 2))
-    return transactionId
-}
-
-//
-
 function readUsersDataJson() {
     return JSON.parse(fs.readFileSync('/data/usersData.json', 'utf-8'));
 }
 
 function readUsersJson() {
     return JSON.parse(fs.readFileSync('data/users.json', 'utf-8'))
-}
-
-
-//makeDeal
-
-function makeDealRequest(token, transactionId, res) {
-    const filepath = path.join(__dirname, 'data', 'pendingDeals.json')
-    const pendingDeals = JSON.parse(fs.readFileSync(filepath, 'utf-8'))
-    console.log('transactionId = '+transactionId);
-    
-    console.log('Pending deals = '+JSON.stringify(pendingDeals));
-    
-    const transactionObj = pendingDeals[transactionId];
-    if (!transactionObj) {
-        return res.status(401).json({ msg: 'Invalid TransactionId' })
-    }
-
-    const {username} = extractDataFromToken(token)
-    
-    if (username == transactionObj.clientusername) {
-        transactionObj.clientAggrementTime=new Date();
-        transactionObj.clientAggrement = true
-    } else if (username == transactionObj.ownerusername) {
-        transactionObj.ownerAggrementTime=new Date();
-        transactionObj.ownerAggrement = true
-    }
-
-    if (transactionObj.clientAggrement && transactionObj.ownerAggrement) {
-        const filepath2 = path.join(__dirname, 'data', 'ongoingDeals.json')
-        const ongoingDeals = JSON.parse(fs.readFileSync(filepath2, 'utf-8'))
-        ongoingDeals[transactionId] = transactionObj
-        delete pendingDeals[transactionId]
-        transactionObj.startTime=new Date()
-        transactionObj.endTime=new Date(Date.now()+(1000*60*2)) //2 mins for temp
-        fs.writeFileSync(filepath2, JSON.stringify(ongoingDeals, null, 2))
-        fs.writeFileSync(filepath, JSON.stringify(pendingDeals, null, 2))
-        console.log('Deal completed!');
-        res.status(200).json({ msg: 'Deal succeessfull!' })
-        return;
-    }
-
-    if (username == transactionObj.clientusername) {
-        fs.writeFileSync(filepath,JSON.stringify(pendingDeals,null,2))
-        return res.status(201).json({
-            msg: 'Waiting for owner to accept the deal'
-        })
-    } else if (username == transactionObj.ownerusername) {
-        fs.writeFileSync(filepath,JSON.stringify(pendingDeals,null,2))
-        return res.status(201).json({
-            msg: 'Waiting for client to accept the deal'
-        })
-    }
-
-}
-
-//returnBook
-
-function returnBookAddNewCompletedDeal(transactionId,dealObj){
-    const filepath=path.join(__dirname,'data','completedDeals.json')
-    const completedDeals=JSON.parse(fs.readFileSync(filepath,'utf-8'))
-    completedDeals[transactionId]=dealObj
-    fs.writeFileSync(filepath,JSON.stringify(completedDeals,null,2))
-}
-
-function returnBook(username,transactionId,res){  
-    const filepath=path.join(__dirname,'data','ongoingDeals.json')
-    const ongoingDeals=JSON.parse(fs.readFileSync(filepath,'utf-8'))
-
-    const dealObj=ongoingDeals[transactionId]
-    if(!dealObj){
-        return res.status(401).json({msg:'Invalid Transaction Id'})
-    }
-    if(username==dealObj.clientusername){
-        dealObj.clientReturnAggrement=true
-    } else if(username==dealObj.ownerusername){
-        dealObj.ownerReturnAggrement=true
-    }
-
-    if(dealObj.clientReturnAggrement && dealObj.ownerReturnAggrement){
-        const returnTime=new Date(dealObj.returnTimeValidation)
-        const delay=(returnTime-(new Date()))/(1000*60)
-        console.log('Delay = '+delay);
-        if(delay>=0){
-            res.status(200).json({msg:'returnTimeValidation Successfull!'})
-            returnBookAddNewCompletedDeal(transactionId,dealObj)
-            delete ongoingDeals[transactionId]
-        } else {
-             res.status(401).json({msg:'Request Timeout!'+delay+' mins late'})
-        }
-    } else {
-        dealObj.returnTimeValidation=new Date(Date.now()+(1000*60*5))
-
-        if(username==dealObj.clientusername){
-            res.status(201).json({msg:'Waiting for owner to accept the book'})
-        } else if(username==dealObj.ownerusername){
-            res.status(201).json({msg:'Waiting for client to return the book'})
-        }
-    }
-
-    fs.writeFileSync(filepath,JSON.stringify(ongoingDeals,null,2))
 }
 
 // app.use(cors({
